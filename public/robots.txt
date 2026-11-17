@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://promaker-id.vercel.app/sitemap.xml
