@@ -425,3 +425,69 @@ body { background: var(--bg); color: var(--ink); }
 .tool-link:hover { transform: translateY(-3px); border-color: #7c3aed; }
 .tool-soon .tool-go { margin-top: 16px; }
 .tool-live:not(.featured) { grid-row: auto; display: block; }
+
+/* ===== Polish v2 ===== */
+#progress { position: fixed; left: 0; top: 0; height: 3px; width: 100%; z-index: 80; transform-origin: left; transform: scaleX(0); background: linear-gradient(90deg, #6d28d9, #a855f7, #ec4899); box-shadow: 0 0 12px rgba(168,85,247,.7); }
+
+/* hero: tekstur dan kedalaman */
+.hero::before { content: ""; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(rgba(255,255,255,.04) 1px, transparent 1px) 0 0 / 56px 56px, linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px) 0 0 / 56px 56px; -webkit-mask-image: radial-gradient(70% 80% at 50% 30%, #000 20%, transparent 75%); mask-image: radial-gradient(70% 80% at 50% 30%, #000 20%, transparent 75%); }
+.hero h1 { letter-spacing: -.035em; line-height: 1.04; }
+.badge { background: rgba(168,85,247,.14); border-color: rgba(196,181,253,.35); }
+.btn-primary { position: relative; overflow: hidden; }
+.btn-primary::after { content: ""; position: absolute; top: 0; bottom: 0; left: -60%; width: 40%; background: linear-gradient(100deg, transparent, rgba(255,255,255,.35), transparent); transform: skewX(-18deg); transition: left .6s ease; }
+.btn-primary:hover::after { left: 130%; }
+
+/* section */
+.section { position: relative; }
+.section:not(.alt)::before { content: ""; position: absolute; inset: 0; pointer-events: none; background: radial-gradient(rgba(124,58,237,.16) 1px, transparent 1.4px) 0 0 / 26px 26px; -webkit-mask-image: linear-gradient(180deg, #000, transparent 70%); mask-image: linear-gradient(180deg, #000, transparent 70%); opacity: .55; }
+.section > .wrap { position: relative; }
+.sec-head h2 { font-size: clamp(28px, 3.6vw, 44px); letter-spacing: -.03em; line-height: 1.08; }
+.sec-head p { font-size: 17px; }
+.eyebrow { padding: 6px 13px; }
+
+/* tools: kartu CV melebar, dua kartu lain berdampingan */
+.tools-grid { grid-template-columns: 1fr 1fr; gap: 24px; }
+.tool-live.featured { grid-column: 1 / -1; grid-row: auto; grid-template-columns: 1.05fr .95fr; gap: 40px; padding: 40px 44px; background: radial-gradient(60% 90% at 100% 0%, rgba(236,72,153,.13), transparent 70%), radial-gradient(50% 80% at 0% 100%, rgba(124,58,237,.14), transparent 70%), linear-gradient(160deg, #fff 0%, #f7f1ff 100%); }
+.tool-live.featured h3 { font-size: 30px; letter-spacing: -.02em; }
+.tool-live.featured .tool-preview { height: 360px; }
+.tool { padding: 30px; overflow: hidden; }
+.tool::before, .step::before { content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none; background: radial-gradient(320px circle at var(--mx, 50%) var(--my, 0%), rgba(124,58,237,.13), transparent 62%); opacity: 0; transition: opacity .3s; }
+.tool:hover::before, .step:hover::before { opacity: 1; }
+.tool > *, .step > *:not(.step-n) { position: relative; }
+.step-n { position: absolute; }
+.tool-soon:not(.tool-link) { display: flex; flex-direction: column; justify-content: center; align-items: flex-start; }
+.tool-link h3, .tool-live:not(.featured) h3 { font-size: 24px; }
+.tool-go { transition: transform .25s, box-shadow .25s; }
+.tool-live:hover .tool-go { transform: translateY(-2px); box-shadow: 0 18px 32px -12px rgba(124,58,237,.9); }
+
+/* langkah: garis penghubung + angka gradien */
+.steps { position: relative; gap: 24px; }
+.steps::before { content: ""; position: absolute; left: 12%; right: 12%; top: 54px; height: 2px; background: repeating-linear-gradient(90deg, rgba(124,58,237,.45) 0 8px, transparent 8px 16px); }
+.step { padding: 32px 28px; text-align: left; }
+.step-n { right: auto; left: 28px; top: 20px; font-size: 13px; letter-spacing: .1em; color: #7c3aed; background: #f1eafe; border: 1px solid #e2d6fb; border-radius: 999px; padding: 3px 11px; }
+.step-n::before { content: "LANGKAH "; }
+.step-ic { margin-top: 30px; width: 54px; height: 54px; border-radius: 16px; background: var(--grad); color: #fff; box-shadow: 0 16px 28px -14px rgba(124,58,237,.8); }
+.step h3 { font-size: 20px; }
+
+/* FAQ dua kolom */
+.faq-layout { display: grid; grid-template-columns: .85fr 1.15fr; gap: 64px; align-items: start; max-width: 1120px; }
+.faq-head { position: sticky; top: 110px; margin-bottom: 0; }
+.faq-item button { padding: 22px 24px; font-size: 16.5px; }
+
+/* CTA + footer */
+.cta-band { position: relative; overflow: hidden; padding: 84px 0; }
+.cta-band::before { content: ""; position: absolute; inset: 0; background: linear-gradient(rgba(255,255,255,.05) 1px, transparent 1px) 0 0 / 48px 48px, linear-gradient(90deg, rgba(255,255,255,.05) 1px, transparent 1px) 0 0 / 48px 48px; -webkit-mask-image: radial-gradient(60% 100% at 50% 0%, #000, transparent); mask-image: radial-gradient(60% 100% at 50% 0%, #000, transparent); }
+.cta-in { position: relative; }
+.cta-in h2 { font-size: clamp(28px, 3.6vw, 42px); letter-spacing: -.03em; }
+.cta-in p { font-size: 17px; }
+.footer { padding: 48px 0; }
+
+@media (max-width: 960px) {
+  .tool-live.featured { padding: 28px 24px; gap: 22px; grid-template-columns: 1fr; }
+  .tool-live.featured .tool-preview { height: 300px; }
+  .tools-grid { grid-template-columns: 1fr; }
+  .steps::before { display: none; }
+  .faq-layout { grid-template-columns: 1fr; gap: 32px; }
+  .faq-head { position: static; }
+}
+@media (prefers-reduced-motion: reduce) { #progress { transition: none; } .btn-primary::after { display: none; } }

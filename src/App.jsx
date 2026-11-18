@@ -340,10 +340,11 @@ function Faq() {
   const [open, setOpen] = useState(0);
   return (
     <section className="section" id="faq">
-      <div className="wrap narrow">
-        <div className="sec-head center">
+      <div className="wrap faq-layout">
+        <div className="sec-head faq-head">
           <span className="eyebrow">FAQ</span>
           <h2>Pertanyaan yang sering muncul</h2>
+          <p>Belum menemukan jawabannya? Buka salah satu tools dan coba langsung, semuanya bisa dipakai tanpa instalasi.</p>
         </div>
         <div className="faq">
           {FAQ.map((f, i) => (
@@ -384,6 +385,7 @@ function Footer() {
           <a href="#cara-kerja">Cara kerja</a>
           <a href="#faq">FAQ</a>
           <a href={CV_URL}>CV Pro Maker</a>
+          <a href="https://clippromaker.vercel.app">Clip Pro Maker</a>
         </div>
         <small>© {YEAR} ProMaker. Semua hak dilindungi.</small>
       </div>
@@ -391,7 +393,30 @@ function Footer() {
   );
 }
 
+function usePolish() {
+  useEffect(() => {
+    const bar = document.getElementById("progress");
+    const onScroll = () => {
+      if (!bar) return;
+      const h = document.documentElement.scrollHeight - window.innerHeight;
+      bar.style.transform = `scaleX(${h > 0 ? Math.min(1, window.scrollY / h) : 0})`;
+    };
+    const onMove = (e) => {
+      const c = e.target.closest && e.target.closest(".tool, .step");
+      if (!c) return;
+      const r = c.getBoundingClientRect();
+      c.style.setProperty("--mx", `${e.clientX - r.left}px`);
+      c.style.setProperty("--my", `${e.clientY - r.top}px`);
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("pointermove", onMove, { passive: true });
+    onScroll();
+    return () => { window.removeEventListener("scroll", onScroll); window.removeEventListener("pointermove", onMove); };
+  }, []);
+}
+
 export default function App() {
+  usePolish();
   useEffect(() => {
     const els = document.querySelectorAll(".reveal");
     if (typeof IntersectionObserver === "undefined") { els.forEach((e) => e.classList.add("in")); return undefined; }
@@ -401,6 +426,7 @@ export default function App() {
   }, []);
   return (
     <>
+      <div id="progress" aria-hidden="true" />
       <Nav />
       <main>
         <HeroArea />
