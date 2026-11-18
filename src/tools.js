@@ -38,6 +38,7 @@ export const TOOLS = [
     description: "Aplikasi desktop untuk memotong video menjadi klip 9:16 dengan framing mengikuti wajah dan subtitle otomatis.",
     url: "https://clippromaker.vercel.app",
     status: "soon",
+    points: ["Klip 9:16 dengan bingkai ikut wajah", "Subtitle otomatis dari transkrip", "Jalan di komputermu, video tidak diunggah"],
     screen: { title: "Clip Pro Maker", sub: "Aplikasi desktop, segera hadir di ProMaker." },
     hero: {
       badge: "Segera hadir · Aplikasi desktop",

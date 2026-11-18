@@ -424,3 +424,4 @@ body { background: var(--bg); color: var(--ink); }
 .tool-link { display: block; color: inherit; transition: transform .25s, border-color .25s; }
 .tool-link:hover { transform: translateY(-3px); border-color: #7c3aed; }
 .tool-soon .tool-go { margin-top: 16px; }
+.tool-live:not(.featured) { grid-row: auto; display: block; }

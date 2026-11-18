@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { ArrowRight, ArrowUpRight, CheckCircle2, FileCheck2, Gauge, Download, Sparkles, Clock, Layers, MousePointerClick, FileDown, Menu, X, Play, ChevronLeft, ChevronRight, Home, FileText, LayoutGrid } from "lucide-react";
+import { ArrowRight, ArrowUpRight, CheckCircle2, FileCheck2, Gauge, Download, Sparkles, Clock, Layers, MousePointerClick, FileDown, Menu, X, Play, ChevronLeft, ChevronRight, Home, FileText, LayoutGrid, Film } from "lucide-react";
 import { TOOLS } from "./tools.js";
 
 const CV_URL = TOOLS.find((t) => t.id === "cv").url;
@@ -251,26 +251,23 @@ function HeroArea() {
 }
 
 function ToolCard({ tool, featured }) {
-  if (tool.status === "soon") {
-    const inner = (
-      <>
+  if (tool.status === "soon" && !tool.url) {
+    return (
+      <div className="tool tool-soon">
         <span className="tool-ic soon"><Clock size={20} /></span>
         <span className="pill pill-soon">Segera hadir</span>
         <h3>{tool.name}</h3>
         <p className="tool-tag">{tool.tagline}</p>
         <p className="tool-desc">{tool.description}</p>
-        {tool.url && <span className="tool-go">Lihat halamannya <ArrowUpRight size={17} /></span>}
-      </>
+      </div>
     );
-    return tool.url
-      ? <a className="tool tool-soon tool-link" href={tool.url}>{inner}</a>
-      : <div className="tool tool-soon">{inner}</div>;
   }
+  const Icon = tool.status === "live" ? FileCheck2 : Film;
   return (
     <a className={`tool tool-live${featured ? " featured" : ""}`} href={tool.url}>
       <div className="tool-main">
-        <span className="tool-ic"><FileCheck2 size={22} /></span>
-        <span className="pill pill-live"><span className="pulse sm" /> Sudah tersedia</span>
+        <span className="tool-ic"><Icon size={22} /></span>
+        <span className="pill pill-live"><span className="pulse sm" /> {tool.status === "live" ? "Sudah tersedia" : "Halaman tersedia"}</span>
         <h3>{tool.name}</h3>
         <p className="tool-tag">{tool.tagline}</p>
         <p className="tool-desc">{tool.description}</p>
