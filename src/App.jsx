@@ -252,15 +252,19 @@ function HeroArea() {
 
 function ToolCard({ tool, featured }) {
   if (tool.status === "soon") {
-    return (
-      <div className="tool tool-soon">
+    const inner = (
+      <>
         <span className="tool-ic soon"><Clock size={20} /></span>
         <span className="pill pill-soon">Segera hadir</span>
         <h3>{tool.name}</h3>
         <p className="tool-tag">{tool.tagline}</p>
         <p className="tool-desc">{tool.description}</p>
-      </div>
+        {tool.url && <span className="tool-go">Lihat halamannya <ArrowUpRight size={17} /></span>}
+      </>
     );
+    return tool.url
+      ? <a className="tool tool-soon tool-link" href={tool.url}>{inner}</a>
+      : <div className="tool tool-soon">{inner}</div>;
   }
   return (
     <a className={`tool tool-live${featured ? " featured" : ""}`} href={tool.url}>

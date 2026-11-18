@@ -419,3 +419,8 @@ body { background: var(--bg); color: var(--ink); }
 .show-name { animation-duration: .3s; }
 .show-ctrl > button { touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
 .show-dots button { touch-action: manipulation; }
+
+/* kartu "segera hadir" yang sudah punya halaman */
+.tool-link { display: block; color: inherit; transition: transform .25s, border-color .25s; }
+.tool-link:hover { transform: translateY(-3px); border-color: #7c3aed; }
+.tool-soon .tool-go { margin-top: 16px; }
