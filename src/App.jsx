@@ -94,8 +94,36 @@ function ClipAvatar() {
       <circle cx="51" cy="82" r="3.2" fill="#1b1033" />
       <path d="M40 54q3-3 6 0M54 54q3-3 6 0" stroke="#2A1B4D" strokeWidth="2" fill="none" strokeLinecap="round" />
       <circle cx="43" cy="59" r="1.7" fill="#2A1B4D" /><circle cx="57" cy="59" r="1.7" fill="#2A1B4D" />
-      <path d="M45 68q5 3.5 10 0" stroke="#B8604A" strokeWidth="1.8" fill="none" strokeLinecap="round" />
+      <ellipse className="clip-mouth" cx="50" cy="70" rx="4.2" ry="1.9" fill="#B8604A" />
     </svg>
+  );
+}
+
+const CLIP_CAPTION = ["Ini", "momen", "yang", "bikin", "penonton", "berhenti", "scroll", "dan", "ikut", "menonton"];
+
+// Subtitle yang menyorot kata satu per satu (sama seperti di Clip Pro Maker).
+function ClipPhone() {
+  const [i, setI] = useState(0);
+  useEffect(() => {
+    const reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduce) return undefined;
+    const t = setInterval(() => setI((v) => (v + 1) % CLIP_CAPTION.length), 420);
+    return () => clearInterval(t);
+  }, []);
+  const start = Math.floor(i / 3) * 3;
+  const words = CLIP_CAPTION.slice(start, start + 3);
+  return (
+    <div className="mc-phone">
+      <div className="mc-notch" />
+      <p className="mc-title">PODCAST EP. 12</p>
+      <div className="mc-screen">
+        <span className="mc-score"><Sparkles size={9} /> Skor 94</span>
+        <ClipAvatar />
+        <p className="mc-sub">{words.map((w, k) => <span key={`${start}-${k}`} className={start + k === i ? "act" : ""}>{w}</span>)}</p>
+      </div>
+      <div className="mc-logo"><Scissors size={9} /> logo kamu</div>
+      <div className="mc-progress"><i style={{ width: `${((i + 1) / CLIP_CAPTION.length) * 100}%` }} /></div>
+    </div>
   );
 }
 
@@ -113,10 +141,8 @@ function MiniClip() {
         </div>
         <div className="mc-video">
           <span className="mc-orb a" /><span className="mc-orb b" />
-          <div className="mc-crop">
-            <em>9:16</em>
-            <ClipAvatar />
-          </div>
+          <div className="mc-who"><ClipAvatar /></div>
+          <div className="mc-crop"><em>9:16</em></div>
         </div>
         <div className="mc-timeline">
           <div className="mc-track">
@@ -126,17 +152,7 @@ function MiniClip() {
           <div className="mc-caption"><span>00:00</span><span>Momen terbaik ditandai otomatis</span></div>
         </div>
       </div>
-      <div className="mc-phone">
-        <div className="mc-notch" />
-        <p className="mc-title">PODCAST EP. 12</p>
-        <div className="mc-screen">
-          <span className="mc-score"><Sparkles size={9} /> Skor 94</span>
-          <ClipAvatar />
-          <p className="mc-sub">INI MOMEN <b>YANG</b></p>
-        </div>
-        <div className="mc-logo"><Scissors size={9} /> logo kamu</div>
-        <div className="mc-progress"><i /></div>
-      </div>
+      <ClipPhone />
       <span className="mc-chip c1"><ScanFace size={12} /> Bingkai ikut wajah</span>
       <span className="mc-chip c2"><Captions size={12} /> Subtitle otomatis</span>
       <span className="mc-chip c3"><ShieldCheck size={12} /> Diproses di komputermu</span>
