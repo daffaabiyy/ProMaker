@@ -491,3 +491,13 @@ body { background: var(--bg); color: var(--ink); }
   .faq-head { position: static; }
 }
 @media (prefers-reduced-motion: reduce) { #progress { transition: none; } .btn-primary::after { display: none; } }
+
+/* transisi antar bagian: tanpa sambungan keras, latar tidak ikut memudar */
+.reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
+.reveal .wrap { transition: opacity .7s cubic-bezier(.2,.7,.2,1), transform .7s cubic-bezier(.2,.7,.2,1); }
+.reveal:not(.in) .wrap { opacity: 0; transform: translateY(22px); }
+.statband { border-top: 0; border-bottom: 0; }
+.hero { border-bottom: 0; }
+#tools { padding-top: 150px; background: linear-gradient(180deg, #090714 0, #1a0f38 40px, #f3ecff 150px, #fff 100%); }
+#tools::before { display: none; }
+@media (prefers-reduced-motion: reduce) { .reveal:not(.in) .wrap { opacity: 1; transform: none; } }
