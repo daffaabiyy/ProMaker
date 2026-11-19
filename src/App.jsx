@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { ArrowRight, ArrowUpRight, CheckCircle2, FileCheck2, Gauge, Download, Sparkles, Clock, Layers, MousePointerClick, FileDown, Menu, X, Play, ChevronLeft, ChevronRight, Home, FileText, LayoutGrid, Film } from "lucide-react";
+import { ArrowRight, ArrowUpRight, CheckCircle2, FileCheck2, Gauge, Download, Sparkles, Clock, Layers, MousePointerClick, FileDown, Menu, X, Play, ChevronLeft, ChevronRight, Home, FileText, LayoutGrid, Film, Scissors, ScanFace, Captions, ShieldCheck } from "lucide-react";
 import { TOOLS } from "./tools.js";
 
 const CV_URL = TOOLS.find((t) => t.id === "cv").url;
@@ -76,6 +76,70 @@ function MiniCv() {
         <div className="minicv-chips"><span>Figma</span><span>User Research</span><span>Design System</span></div>
       </div>
       <div className="minicv-scan" />
+    </div>
+  );
+}
+
+function ClipAvatar() {
+  return (
+    <svg viewBox="0 0 100 120" className="clip-avatar" aria-hidden="true">
+      <ellipse cx="50" cy="128" rx="46" ry="34" fill="#5b21b6" />
+      <rect x="43" y="74" width="14" height="18" rx="4" fill="#E8B48F" />
+      <path d="M26 52a24 26 0 0 1 48 0" fill="none" stroke="#1b1033" strokeWidth="5" strokeLinecap="round" />
+      <ellipse cx="50" cy="56" rx="19" ry="22" fill="#F3C6A3" />
+      <path d="M30 48a21 16 0 0 1 40 0q-8-7-20-7t-20 7z" fill="#2A1B4D" />
+      <rect x="20" y="48" width="8" height="18" rx="4" fill="#1b1033" />
+      <rect x="72" y="48" width="8" height="18" rx="4" fill="#1b1033" />
+      <path d="M74 64q0 16-22 18" fill="none" stroke="#1b1033" strokeWidth="2.5" strokeLinecap="round" />
+      <circle cx="51" cy="82" r="3.2" fill="#1b1033" />
+      <path d="M40 54q3-3 6 0M54 54q3-3 6 0" stroke="#2A1B4D" strokeWidth="2" fill="none" strokeLinecap="round" />
+      <circle cx="43" cy="59" r="1.7" fill="#2A1B4D" /><circle cx="57" cy="59" r="1.7" fill="#2A1B4D" />
+      <path d="M45 68q5 3.5 10 0" stroke="#B8604A" strokeWidth="1.8" fill="none" strokeLinecap="round" />
+    </svg>
+  );
+}
+
+// Mock Clip Pro Maker preview (desktop window + phone) for the tool card.
+function MiniClip() {
+  const scores = [["94", 6], ["88", 27], ["91", 56], ["85", 80]];
+  return (
+    <div className="miniclip">
+      <div className="mc-glow" />
+      <div className="mc-win">
+        <div className="mc-bar">
+          <i /><i /><i />
+          <b>podcast-ep-12.mp4</b>
+          <small>16:9 · 48:12</small>
+        </div>
+        <div className="mc-video">
+          <span className="mc-orb a" /><span className="mc-orb b" />
+          <div className="mc-crop">
+            <em>9:16</em>
+            <ClipAvatar />
+          </div>
+        </div>
+        <div className="mc-timeline">
+          <div className="mc-track">
+            <span className="mc-head" />
+            {scores.map(([s, x]) => <u key={s} style={{ left: `${x}%` }}>{s}</u>)}
+          </div>
+          <div className="mc-caption"><span>00:00</span><span>Momen terbaik ditandai otomatis</span></div>
+        </div>
+      </div>
+      <div className="mc-phone">
+        <div className="mc-notch" />
+        <p className="mc-title">PODCAST EP. 12</p>
+        <div className="mc-screen">
+          <span className="mc-score"><Sparkles size={9} /> Skor 94</span>
+          <ClipAvatar />
+          <p className="mc-sub">INI MOMEN <b>YANG</b></p>
+        </div>
+        <div className="mc-logo"><Scissors size={9} /> logo kamu</div>
+        <div className="mc-progress"><i /></div>
+      </div>
+      <span className="mc-chip c1"><ScanFace size={12} /> Bingkai ikut wajah</span>
+      <span className="mc-chip c2"><Captions size={12} /> Subtitle otomatis</span>
+      <span className="mc-chip c3"><ShieldCheck size={12} /> Diproses di komputermu</span>
     </div>
   );
 }
@@ -276,14 +340,19 @@ function ToolCard({ tool, featured }) {
         )}
         <span className="tool-go">Buka {tool.name} <ArrowUpRight size={17} /></span>
       </div>
-      {featured && <div className="tool-preview" aria-hidden="true"><MiniCv /></div>}
+      {featured && (
+        <div className={`tool-preview${tool.id === "clip" ? " clip" : ""}`} aria-hidden="true">
+          {tool.id === "clip" ? <MiniClip /> : <MiniCv />}
+        </div>
+      )}
     </a>
   );
 }
 
 function Tools() {
-  const live = TOOLS.filter((t) => t.status === "live");
-  const soon = TOOLS.filter((t) => t.status === "soon");
+  // Semua tools yang punya halaman (url) tampil sebagai kartu besar dengan preview.
+  const live = TOOLS.filter((t) => t.url);
+  const soon = TOOLS.filter((t) => !t.url);
   return (
     <section className="section" id="tools">
       <div className="wrap">
